@@ -15,43 +15,28 @@ class DLList
     DLList<T> operator + (const T&) const;
     DLList<T>& operator += (const T&);
 
-    // функция, която преброява колко пъти елемента x се среща в списъка 
-    static int count(DLList<T>* l, int x);
-
-    // функция, която преброява колко пъти елемента x се среща в списъка - втори вариант
-    static int count2(DLList<T>* l, int x);
-
-    // функция, която обръща реда на елементите
-    static void reverse( DLList<T>* l);
-
-    // функция, която обръща реда на елементите - втори вариант
-    static void reverse2( DLList<T>* l);
-
     private:
-    struct node
+    struct box
     {
         T data;
-        node *next, *prev;
+        box *next, *prev;
     };
 
-    node *first;
-    node *last;
+    box first;
 
 
     public:
        class Iterator
     {
         public:
-        Iterator(node* _current);
+        Iterator(box* _current);
 
         T& operator *();
         Iterator& operator ++();
         Iterator& operator --();
         bool operator!= (const Iterator&);
-        bool operator== (const Iterator&); 
-
         private:
-        node* current;
+        box* current;
     };
 
     Iterator begin();

@@ -18,7 +18,7 @@ DLList<T>::DLList(const DLList<T> &other)
 template <class T>
 DLList<T>::~DLList()
 {
-    box *crr = first, *temp;
+    node *crr = first, *temp;
 
     while (crr != nullptr)
     {
@@ -31,7 +31,7 @@ DLList<T>::~DLList()
 template <class T>
 void DLList<T>::clear()
 {
-    DLList<T>::box *crr = first, *temp;
+    DLList<T>::node *crr = first, *temp;
 
     while (crr != nullptr)
     {
@@ -66,7 +66,7 @@ DLList<T> DLList<T>::operator+(const T &x) const
 template <class T>
 DLList<T> &DLList<T>::operator+=(const T &x)
 {
-    DLList<T>::box *crr = new box{x, nullptr, last};
+    DLList<T>::node *crr = new node{x, nullptr, last};
 
     if (last != nullptr)
     {
@@ -84,14 +84,14 @@ DLList<T> &DLList<T>::operator+=(const T &x)
 template <class T>
 void DLList<T>::copy(const DLList<T> &other)
 {
-    first = new DLList<T>::box{other.first->data, nullptr, nullptr};
+    first = new DLList<T>::node{other.first->data, nullptr, nullptr};
 
-    DLList<T>::box *crr = first;
-    DLList<T>::box *temp = other.first->next;
+    DLList<T>::node *crr = first;
+    DLList<T>::node *temp = other.first->next;
 
     while (temp != nullptr)
     {
-        crr->next = new box{temp->data, nullptr, crr};
+        crr->next = new node{temp->data, nullptr, crr};
 
         temp = temp->next;
         crr = crr->next;
@@ -103,7 +103,7 @@ void DLList<T>::copy(const DLList<T> &other)
 template <class T>
 std::ostream &operator<<(std::ostream &out, const DLList<T> &list)
 {
-    typename DLList<T>::box *crr = list.first;
+    typename DLList<T>::node *crr = list.first;
 
     while (crr != nullptr)
     {
@@ -161,7 +161,7 @@ bool DLList<T>::Iterator::operator==(const Iterator& it)
 }
 
 template <class T>
-DLList<T>::Iterator::Iterator(box *_current) : current(_current) {}
+DLList<T>::Iterator::Iterator(node *_current) : current(_current) {}
 
 template <class T>
 typename DLList<T>::Iterator DLList<T>::begin()
@@ -180,7 +180,7 @@ int DLList<T>::count(DLList<T> *l, int x)
 {
     int count = 0;
 
-    DLList<T>::box *crr = l->first;
+    DLList<T>::node *crr = l->first;
     while (crr != nullptr)
     {
         if (crr->data == x)
@@ -218,8 +218,8 @@ void DLList<T>::reverse(DLList<T> *l)
         return;
     }
 
-    DLList<T>::box *crr = l->first;
-    DLList<T>::box *temp = nullptr;
+    DLList<T>::node *crr = l->first;
+    DLList<T>::node *temp = nullptr;
 
     while (crr != nullptr)
     {
